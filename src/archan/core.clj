@@ -11,8 +11,10 @@
 
 (defn download-thread
   [{:keys [arguments]} url]
-  (let [{:keys [exit out err]}]
-    (apply sh "thread-archiver" url arguments)))
+  (let [{:keys [exit out err]} (apply sh "thread-archiver" url arguments)]
+    (if (= 0 exit)
+      (println out)
+      (println err))))
 
 (defn now
   []
