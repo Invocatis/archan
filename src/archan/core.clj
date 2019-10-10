@@ -11,7 +11,8 @@
 
 (defn download-thread
   [{:keys [arguments]} url]
-  (apply sh "thread-archiver" url arguments))
+  (let [{:keys [exit out err]}]
+    (apply sh "thread-archiver" url arguments)))
 
 (defn now
   []
@@ -20,8 +21,9 @@
 (defn of-thread
   [config {:keys [no board] :as thread}]
   (let [id {:no no :board board}]
-    (println "Download" board no)
-    (download-thread config (thread-url thread))))
+    (println "Downloading" board no)
+    (download-thread config (thread-url thread))
+    (println "Finished" board no)))
 
 (defn get-threads
  [board]
@@ -46,9 +48,11 @@
   [{:keys [cadence] :as config}]
   (loop []
     (of-config config)
+    (println "Waiting" cadence "...")
     (Thread/sleep cadence)
     (recur)))
 
-(def config (read-string (slurp "config.edn")))
-
-(def db (-> config :db :connection))
+(defn -main
+  [config-path & args]
+  (let [config (read-string (slurp config-path))]
+    (run config)))

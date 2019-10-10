@@ -12,4 +12,7 @@
                  [org.postgresql/postgresql "42.2.8"]]
   :main ^:skip-aot archan.core
   :target-path "target/%s"
-  :profiles {:uberjar {:aot :all}})
+  :profiles 
+   {:uberjar 
+    {:aot :all
+     :jvm-opts ["-Dclojure.server.repl={:port 5555 :accept clojure.core.server/repl}"]}})
