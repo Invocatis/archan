@@ -9,10 +9,11 @@
                  [honeysql "0.9.8"]
                  [org.clojure/java.jdbc "0.7.10"]
                  [org.clojure/core.cache "0.8.1"]
-                 [org.postgresql/postgresql "42.2.8"]]
+                 [org.postgresql/postgresql "42.2.8"]
+                 [abrade "0.0.2"]]
   :main ^:skip-aot archan.core
   :target-path "target/%s"
-  :profiles 
-   {:uberjar 
+  :profiles
+   {:uberjar
     {:aot :all
      :jvm-opts ["-Dclojure.server.repl={:port 5555 :accept clojure.core.server/repl}"]}})
